@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emotion Detector</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        function RunSentimentAnalysis() {
+            var textToAnalyze = document.getElementById("textToAnalyze").value;
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById("system_response").innerHTML = xhttp.responseText;
+                }
+            };
+            xhttp.open("GET", "/emotionDetector?textToAnalyze=" + encodeURIComponent(textToAnalyze), true);
+            xhttp.send();
+        }
+    </script>
+</head>
+<body class="container mt-5">
+    <h1 class="text-center">Emotion Detector</h1>
+    <div class="form-group mt-4">
+        <label for="textToAnalyze">Enter Text for Emotion Detection:</label>
+        <textarea class="form-control" id="textToAnalyze" rows="4" placeholder="Type your text here..."></textarea>
+    </div>
+    <button type="button" class="btn btn-primary btn-block" onclick="RunSentimentAnalysis()">Run Sentiment Analysis</button>
+    
+    <div class="mt-4">
+        <h3>System Response:</h3>
+        <div id="system_response" class="alert alert-secondary mt-2" role="alert">
+            Response will appear here...
+        </div>
+    </div>
+</body>
+</html>
